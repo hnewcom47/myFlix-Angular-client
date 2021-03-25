@@ -1,11 +1,18 @@
-<mat-card>
+<mat-card class="login-card">
+
+    <div class="close-icon-container">
+
+        <button mat-icon-button class="close-icon" color="basic" [mat-dialog-close]="true">
+            <mat-icon>Close</mat-icon>
+        </button>
+
+    </div>
 
     <mat-card-header>
-        <mat-card-title>Login</mat-card-title>
+        <mat-card-title class="login-title">Login</mat-card-title>
     </mat-card-header>
 
     <mat-card-content>
-
         <form>
 
             <mat-form-field>
@@ -24,7 +31,7 @@
 
     <mat-card-actions>
 
-        <button mat-raised-button (click)="userLogin()" color="primary">
+        <button class="sign-in-button" mat-raised-button (click)="userLogin()" color="basic">
             Sign In
         </button>
 
