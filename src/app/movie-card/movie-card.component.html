@@ -1,0 +1,75 @@
+<app-nav-bar></app-nav-bar>
+
+<div class=background>
+
+    <div class="search-box">
+        <input class="search-input" type="text" placeholder="Search Movies ..." [(ngModel)]="filterTerm">
+    </div>
+
+    <div class="all-movies">
+
+        <mat-card *ngFor="let movie of movies | customfilter:filterTerm:'Title'">
+
+            <mat-card-header>
+
+                <div class="movie-title">
+                    <mat-card-title>{{movie.Title}}</mat-card-title>
+                </div>
+
+            </mat-card-header>
+
+            <img mat-card-image src={{movie.ImagePath}} alt={{movie.Title}} />
+
+            <mat-card-actions>
+
+                <div class="details">
+
+                    <button class="details-button" mat-stroked-button color="basic"
+                        (click)="showDetailsDialog(movie.Title, movie.ImagePath, movie.Description, movie.Director.Name, movie.Genre.Name)">
+                        Details
+                    </button>
+
+                    <br />
+
+                    <br />
+
+                </div>
+
+                <div class="directed-by">
+
+                    Directed by:
+                    <button class="director-button" mat-button color="basic"
+                        (click)="showDirectorDialog(movie.Director.Name, movie.Director.Bio, movie.Director.Birth, movie.Director.Death)">
+                        {{movie.Director.Name}}
+                    </button>
+
+                </div>
+
+                <div class="genre">
+
+                    Genre:
+                    <button class="genre-button" mat-button color="basic"
+                        (click)="showGenreDialog(movie.Genre.Name, movie.Genre.Description)">
+                        {{movie.Genre.Name}}
+                    </button>
+
+                </div>
+
+                <div class="favorite">
+
+                    <button class="favorite-button" mat-icon-button (click)="addFavorite(movie._id, movie.Title)"
+                        color="warn" aria-label="Add movie to favorites button">
+                        <mat-icon>
+                            favorite_border
+                        </mat-icon>
+                    </button>
+
+                </div>
+
+            </mat-card-actions>
+
+        </mat-card>
+
+    </div>
+
+</div>
