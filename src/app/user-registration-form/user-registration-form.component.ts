@@ -6,7 +6,6 @@ import { UserRegistrationService } from '../fetch-api-data.service';
 // This import is used to display notifications back to the user
 import { MatSnackBar } from '@angular/material/snack-bar';
 
-
 @Component({
   selector: 'app-user-registration-form',
   templateUrl: './user-registration-form.component.html',
@@ -27,17 +26,18 @@ export class UserRegistrationFormComponent implements OnInit {
 
   // This is the function responsible for sending the form inputs to the backend
   registerUser(): void {
-    this.fetchApiData.userRegistration(this.userData).subscribe((result) => {
-      // Logic for a successful user registration goes here! (To be implemented)
+    this.fetchApiData.userRegistration(this.userData).subscribe((response) => {
+      // Logic for a successful user registration goes here!
       this.dialogRef.close(); // This will close the modal on success!
-      this.snackBar.open(result, 'OK', {
+      console.log(response);
+      this.snackBar.open('Account created successfully, you may now log in!', 'OK', {
         duration: 2000
       });
-    }, (result) => {
-      this.snackBar.open(result, 'OK', {
+    }, (response) => {
+      console.log(response);
+      this.snackBar.open(response, 'OK', {
         duration: 2000
       });
     });
   }
-
 }

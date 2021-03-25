@@ -11,7 +11,6 @@ const apiUrl = 'https://movies4you-application.herokuapp.com/';  //PUT IN CORREC
   providedIn: 'root'
 })
 
-
 //User registration
 export class UserRegistrationService {
   //Inject the HttpClient module to the constructor params
@@ -32,8 +31,8 @@ export class UserRegistrationService {
       console.error('Some error occured:', error.error.message);
     } else {
       console.error(
-        `Error Status code ${error.status}, ` +
-        `Error body is: ${error.error}`
+        'Error Status code ${error.status}, ' +
+        'Error body is: ${error.error}'
       );
     }
     return throwError(
@@ -47,6 +46,7 @@ export class UserRegistrationService {
 @Injectable({
   providedIn: 'root'
 })
+
 export class UserLoginService {
 
   constructor(private http: HttpClient) { }
@@ -58,17 +58,18 @@ export class UserLoginService {
     return this.http.post(apiUrl + 'login', userDetails)
       .pipe(catchError(this.handleError));
   }
+
   private handleError(error: HttpErrorResponse): any {
     if (error.error instanceof ErrorEvent) {
       console.error('Some error occurred:', error.error.message);
     } else {
       console.error(
-        `Error Status code ${error.status}, ` +
-        `Error body is: ${error.error}`
+        'Error Status code ${error.status}, ' +
+        'Error body is: ${error.error}'
       );
     }
     return throwError(
-      'Something bad happened: please try again later.'
+      'Invalid username or password. Please try again.'
     );
   }
 }
@@ -78,6 +79,7 @@ export class UserLoginService {
 @Injectable({
   providedIn: 'root'
 })
+
 export class GetAllMoviesService {
 
   constructor(private http: HttpClient) { }
@@ -93,18 +95,20 @@ export class GetAllMoviesService {
       catchError(this.handleError)
     );
   }
+
   // Non-typed response extraction
-  private extractResponseData(res: Response | Object): Response | Object { // Is this right? "(res: Response): any" caused an error above on this.extractResponseData
+  private extractResponseData(res: Response | Object): Response | Object {
     const body = res;
     return body || {};
   }
+
   private handleError(error: HttpErrorResponse): any {
     if (error.error instanceof ErrorEvent) {
       console.error('Some error occurred:', error.error.message);
     } else {
       console.error(
-        `Error Status code ${error.status}, ` +
-        `Error body is: ${error.error}`
+        'Error Status code ${error.status}, ' +
+        'Error body is: ${error.error}'
       );
     }
     return throwError(
@@ -118,6 +122,7 @@ export class GetAllMoviesService {
 @Injectable({
   providedIn: 'root'
 })
+
 export class GetSingleMovieService {
   constructor(private http: HttpClient) { }
 
@@ -132,18 +137,20 @@ export class GetSingleMovieService {
       catchError(this.handleError)
     );
   }
+
   // Non-typed response extraction
-  private extractResponseData(res: Response | Object): Response | Object { // Is this right? "(res: Response): any" caused an error above on this.extractResponseData
+  private extractResponseData(res: Response | Object): Response | Object {
     const body = res;
     return body || {};
   }
+
   private handleError(error: HttpErrorResponse): any {
     if (error.error instanceof ErrorEvent) {
       console.error('Some error occurred:', error.error.message);
     } else {
       console.error(
-        `Error Status code ${error.status}, ` +
-        `Error body is: ${error.error}`
+        'Error Status code ${error.status}, ' +
+        'Error body is: ${error.error}'
       );
     }
     return throwError(
@@ -157,6 +164,7 @@ export class GetSingleMovieService {
 @Injectable({
   providedIn: 'root'
 })
+
 export class GetDirectorService {
   constructor(private http: HttpClient) { }
 
@@ -171,18 +179,20 @@ export class GetDirectorService {
       catchError(this.handleError)
     );
   }
+
   // Non-typed response extraction
-  private extractResponseData(res: Response | Object): Response | Object { // Is this right? "(res: Response): any" caused an error above on this.extractResponseData
+  private extractResponseData(res: Response | Object): Response | Object {
     const body = res;
     return body || {};
   }
+
   private handleError(error: HttpErrorResponse): any {
     if (error.error instanceof ErrorEvent) {
       console.error('Some error occurred:', error.error.message);
     } else {
       console.error(
-        `Error Status code ${error.status}, ` +
-        `Error body is: ${error.error}`
+        'Error Status code ${error.status}, ' +
+        'Error body is: ${error.error}'
       );
     }
     return throwError(
@@ -196,6 +206,7 @@ export class GetDirectorService {
 @Injectable({
   providedIn: 'root'
 })
+
 export class GetGenreService {
   constructor(private http: HttpClient) { }
 
@@ -210,18 +221,20 @@ export class GetGenreService {
       catchError(this.handleError)
     );
   }
+
   // Non-typed response extraction
-  private extractResponseData(res: Response | Object): Response | Object { // Is this right? "(res: Response): any" caused an error above on this.extractResponseData
+  private extractResponseData(res: Response | Object): Response | Object {
     const body = res;
     return body || {};
   }
+
   private handleError(error: HttpErrorResponse): any {
     if (error.error instanceof ErrorEvent) {
       console.error('Some error occurred:', error.error.message);
     } else {
       console.error(
-        `Error Status code ${error.status}, ` +
-        `Error body is: ${error.error}`
+        'Error Status code ${error.status}, ' +
+        'Error body is: ${error.error}'
       );
     }
     return throwError(
@@ -235,13 +248,15 @@ export class GetGenreService {
 @Injectable({
   providedIn: 'root'
 })
+
 export class GetUserService {
   constructor(private http: HttpClient) { }
 
   //making the api call to get user data by username
   getUser(): Observable<any> {
     const token = localStorage.getItem('token');
-    return this.http.get(apiUrl + 'users/:Username', {
+    const username = localStorage.getItem('user');
+    return this.http.get('${apiUrl}users/${username}', {
       headers: new HttpHeaders({
         Authorization: 'Bearer ' + token,
       })
@@ -249,18 +264,20 @@ export class GetUserService {
       catchError(this.handleError)
     );
   }
+
   // Non-typed response extraction
-  private extractResponseData(res: Response | Object): Response | Object { // Is this right? "(res: Response): any" caused an error above on this.extractResponseData
+  private extractResponseData(res: Response | Object): Response | Object {
     const body = res;
     return body || {};
   }
+
   private handleError(error: HttpErrorResponse): any {
     if (error.error instanceof ErrorEvent) {
       console.error('Some error occurred:', error.error.message);
     } else {
       console.error(
-        `Error Status code ${error.status}, ` +
-        `Error body is: ${error.error}`
+        'Error Status code ${error.status}, ' +
+        'Error body is: ${error.error}'
       );
     }
     return throwError(
@@ -274,6 +291,7 @@ export class GetUserService {
 @Injectable({
   providedIn: 'root'
 })
+
 export class GetFavoriteMoviesService {
   constructor(private http: HttpClient) { }
 
@@ -288,18 +306,20 @@ export class GetFavoriteMoviesService {
       catchError(this.handleError)
     );
   }
+
   // Non-typed response extraction
-  private extractResponseData(res: Response | Object): Response | Object { // Is this right? "(res: Response): any" caused an error above on this.extractResponseData
+  private extractResponseData(res: Response | Object): Response | Object {
     const body = res;
     return body || {};
   }
+
   private handleError(error: HttpErrorResponse): any {
     if (error.error instanceof ErrorEvent) {
       console.error('Some error occurred:', error.error.message);
     } else {
       console.error(
-        `Error Status code ${error.status}, ` +
-        `Error body is: ${error.error}`
+        'Error Status code ${error.status}, ' +
+        'Error body is: ${error.error}'
       );
     }
     return throwError(
@@ -313,13 +333,15 @@ export class GetFavoriteMoviesService {
 @Injectable({
   providedIn: 'root'
 })
+
 export class AddFavoriteMovieService {
   constructor(private http: HttpClient) { }
 
   // making the api call to add a movie to a user's list of favorites
-  addFavoriteMovie(): Observable<any> {
+  addFavoriteMovie(id: string): Observable<any> {
     const token = localStorage.getItem('token');
-    return this.http.post(apiUrl + 'users/:Username/favorites/:MovieID', {
+    const username = localStorage.getItem('user');
+    return this.http.post('${apiUrl}users/${username}/favorites/${id}', id, {
       headers: new HttpHeaders({
         Authorization: 'Bearer ' + token,
       })
@@ -327,18 +349,20 @@ export class AddFavoriteMovieService {
       catchError(this.handleError)
     );
   }
+
   // Non-typed response extraction
-  private extractResponseData(res: Response | Object): Response | Object { // Is this righ? "(res: Response): any" caused an error above on this.extractResponseData
+  private extractResponseData(res: Response | Object): Response | Object {
     const body = res;
     return body || {};
   }
+
   private handleError(error: HttpErrorResponse): any {
     if (error.error instanceof ErrorEvent) {
       console.error('Some error occurred:', error.error.message);
     } else {
       console.error(
-        `Error Status code ${error.status}, ` +
-        `Error body is: ${error.error}`
+        'Error Status code ${error.status}, ' +
+        'Error body is: ${error.error}'
       );
     }
     return throwError(
@@ -352,13 +376,15 @@ export class AddFavoriteMovieService {
 @Injectable({
   providedIn: 'root'
 })
+
 export class EditUserService {
   constructor(private http: HttpClient) { }
 
   // making the api call to edit a user's information
-  editUser(): Observable<any> {
+  editUser(userDetails: any): Observable<any> {
     const token = localStorage.getItem('token');
-    return this.http.put(apiUrl + 'users/:Username', {
+    const username = localStorage.getItem('user');
+    return this.http.put('${apiUrl}users/${username}', userDetails, {
       headers: new HttpHeaders({
         Authorization: 'Bearer ' + token,
       })
@@ -366,18 +392,20 @@ export class EditUserService {
       catchError(this.handleError)
     );
   }
+
   // Non-typed response extraction
-  private extractResponseData(res: Response | Object): Response | Object { // res: Is this right? "(res: Response): any" caused an error above on this.extractResponseData
+  private extractResponseData(res: Response | Object): Response | Object {
     const body = res;
     return body || {};
   }
+
   private handleError(error: HttpErrorResponse): any {
     if (error.error instanceof ErrorEvent) {
       console.error('Some error occurred:', error.error.message);
     } else {
       console.error(
-        `Error Status code ${error.status}, ` +
-        `Error body is: ${error.error}`
+        'Error Status code ${error.status}, ' +
+        'Error body is: ${error.error}'
       );
     }
     return throwError(
@@ -391,32 +419,37 @@ export class EditUserService {
 @Injectable({
   providedIn: 'root'
 })
+
 export class DeleteUserService {
   constructor(private http: HttpClient) { }
 
   // making the api call to delete a user
   deleteUser(): Observable<any> {
     const token = localStorage.getItem('token');
-    return this.http.delete(apiUrl + 'users/:Username', {
+    const username = localStorage.getItem('user');
+    return this.http.delete('${apiUrl}users/${username}', {
       headers: new HttpHeaders({
         Authorization: 'Bearer ' + token,
-      })
+      }),
+      responseType: 'text',
     }).pipe(map(this.extractResponseData),
       catchError(this.handleError)
     );
   }
+
   // Non-typed response extraction
-  private extractResponseData(res: Response | Object): Response | Object { // Is this right? "(res: Response): any" caused an error above on this.extractResponseData
+  private extractResponseData(res: Response | Object): Response | Object {
     const body = res;
     return body || {};
   }
+
   private handleError(error: HttpErrorResponse): any {
     if (error.error instanceof ErrorEvent) {
       console.error('Some error occurred:', error.error.message);
     } else {
       console.error(
-        `Error Status code ${error.status}, ` +
-        `Error body is: ${error.error}`
+        'Error Status code ${error.status}, ' +
+        'Error body is: ${error.error}'
       );
     }
     return throwError(
@@ -430,13 +463,15 @@ export class DeleteUserService {
 @Injectable({
   providedIn: 'root'
 })
+
 export class DeleteFavoriteMovieService {
   constructor(private http: HttpClient) { }
 
   // making the api call to add a movie to a user's list of favorites
-  deleteFavoriteMovie(): Observable<any> {
+  deleteFavoriteMovie(id: string): Observable<any> {
     const token = localStorage.getItem('token');
-    return this.http.delete(apiUrl + 'users/:Username/favorites/:MovieID', {
+    const username = localStorage.getItem('user');
+    return this.http.delete('${apiUrl}users/${username}/favorites/${id}', {
       headers: new HttpHeaders({
         Authorization: 'Bearer ' + token,
       })
@@ -444,18 +479,20 @@ export class DeleteFavoriteMovieService {
       catchError(this.handleError)
     );
   }
+
   // Non-typed response extraction
-  private extractResponseData(res: Response | Object): Response | Object { // res: Is this right? "(res: Response): any" caused an error above on this.extractResponseData
+  private extractResponseData(res: Response | Object): Response | Object {
     const body = res;
     return body || {};
   }
+
   private handleError(error: HttpErrorResponse): any {
     if (error.error instanceof ErrorEvent) {
       console.error('Some error occurred:', error.error.message);
     } else {
       console.error(
-        `Error Status code ${error.status}, ` +
-        `Error body is: ${error.error}`
+        'Error Status code ${error.status}, ' +
+        'Error body is: ${error.error}'
       );
     }
     return throwError(
