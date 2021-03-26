@@ -25,10 +25,16 @@ export class UserProfileComponent implements OnInit {
     public router: Router
   ) { }
 
+  /**
+  * Runs the getUser() function on initialization
+  */
   ngOnInit(): void {
     this.getUser();
   }
 
+  /**
+  * Gets the user object from the database and calls the getMovies() function
+  */
   getUser(): void {
     this.fetchApiData.getUser().subscribe((resp: any) => {
       this.user = resp;
@@ -36,6 +42,9 @@ export class UserProfileComponent implements OnInit {
     });
   }
 
+  /**
+   * Returns a list of all movies from the database and calls the filterFavorites() function
+   */
   getMovies(): void {
     this.fetchApiData2.getAllMovies().subscribe((resp: any) => {
       this.movies = resp;
@@ -43,6 +52,10 @@ export class UserProfileComponent implements OnInit {
     });
   }
 
+  /**
+  * Filters the list of all movies into an array that matches user favorites
+  * @returns {array}
+  */
   filterFavorites(): void {
     this.favorites = this.movies.filter((movie: any) =>
       this.user.FavoriteMovies.includes(movie._id)
@@ -50,6 +63,11 @@ export class UserProfileComponent implements OnInit {
     return this.favorites;
   }
 
+  /**
+ * Removes movie(s) from the users favorites list and refreshes the window automatically to show changes
+ * @param id 
+ * @param title 
+ */
   removeFromFavorites(id: string, title: string): void {
     this.fetchApiData3.deleteFavoriteMovie(id).subscribe(() => {
       this.snackBar.open(
@@ -63,12 +81,18 @@ export class UserProfileComponent implements OnInit {
     });
   }
 
+  /**
+   * Opens the dialog box where the user can update their information
+   */
   openUpdateProfileDialog(): void {
     this.dialog.open(UpdateProfileComponent, {
       width: '280px',
     });
   }
 
+  /**
+ * This will ask the user to confirm that they want to delete their profile.
+ */
   deleteProfile(): void {
     let ok = confirm("Are you sure you want to delete your profile?\nThis action cannot be undone.");
     if (ok) {

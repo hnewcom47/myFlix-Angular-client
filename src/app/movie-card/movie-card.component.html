@@ -1,13 +1,18 @@
+<!--
+  This component is the main view after login.  It shows all movies returned by the API call.  Users can perform multiple actions on each movie card including viewing modals of individual movie details, director details, and genre details.  Users can also add individual movies to their favorites.
+-->
+
 <app-nav-bar></app-nav-bar>
 
 <div class=background>
 
     <div class="search-box">
+        <!-- Used to search all movies by title -->
         <input class="search-input" type="text" placeholder="Search Movies ..." [(ngModel)]="filterTerm">
     </div>
 
     <div class="all-movies">
-
+        <!-- *ngFor directive is used to display all returned movies and display them on their own card. -->
         <mat-card *ngFor="let movie of movies">
 
             <mat-card-header>

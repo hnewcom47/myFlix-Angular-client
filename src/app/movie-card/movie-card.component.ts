@@ -15,6 +15,9 @@ import { MatButtonModule } from '@angular/material/button';
 })
 
 export class MovieCardComponent implements OnInit {
+  /**
+  * filterTerm!: string: is needed for the search field used in src/app/movie-card.component.html
+  */
   filterTerm!: string;
   movies: any[] = [];
 
@@ -27,10 +30,17 @@ export class MovieCardComponent implements OnInit {
     public buttonModule: MatButtonModule
   ) { }
 
+
+  /**
+  * getMovies() function is run on initialization
+  */
   ngOnInit(): void {
     this.getMovies();
   }
 
+  /**
+  * Gets a list of all movies and stores them in an array
+  */
   getMovies(): void {
     this.fetchApiData.getAllMovies().subscribe((resp: any) => {
       this.movies = resp;
@@ -39,6 +49,13 @@ export class MovieCardComponent implements OnInit {
     });
   }
 
+  /**
+  * Opens a dialog box with a description of the movie's director
+  * @param name 
+  * @param bio 
+  * @param birth 
+  * @param death 
+  */
   showDirectorDialog(name: string, bio: string, birth: Date, death: Date): void {
     this.dialog.open(DirectorDialogComponent, {
       data: { name, bio, birth, death },
@@ -46,6 +63,11 @@ export class MovieCardComponent implements OnInit {
     });
   }
 
+  /**
+  * Opens a dialog box with a description of the movie's genre
+  * @param name 
+  * @param description 
+  */
   showGenreDialog(name: string, description: string): void {
     this.dialog.open(GenreDialogComponent, {
       data: { name, description },
@@ -53,6 +75,14 @@ export class MovieCardComponent implements OnInit {
     });
   }
 
+  /**
+  * Opens a dialog box with all available details of the movie
+  * @param title 
+  * @param imagepath 
+  * @param description 
+  * @param director 
+  * @param genre 
+  */
   showDetailsDialog(title: string, imagepath: string, description: string, director: string, genre: string): void {
     this.dialog.open(DetailsDialogComponent, {
       data: { title, imagepath, description, director, genre },
@@ -60,6 +90,11 @@ export class MovieCardComponent implements OnInit {
     });
   }
 
+  /**
+  * Adds the movie to the user's list of favorites.  The favorites list is stored in the database and is viewable on the user profile.
+  * @param id 
+  * @param title 
+  */
   addFavorite(id: string, title: string): void {
     this.fetchApiData2.addFavoriteMovie(id).subscribe(() => {
       this.snackBar.open('${title} has been added to your favorites!', 'OK', {

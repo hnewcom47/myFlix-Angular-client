@@ -22,6 +22,9 @@ export class UpdateProfileComponent implements OnInit {
   ngOnInit(): void {
   }
 
+  /**
+ * Sends updated user information to the database and refreshes the page so the user can view updated information automatically
+ */
   editUser(): void {
     this.fetchApiData.editUser(this.userData).subscribe((response) => {
       this.dialogRef.close();
