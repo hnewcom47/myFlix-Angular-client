@@ -1,19 +1,19 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
-import { UpdateUserProfileComponent } from './update-user-profile.component';
+import { UpdateProfileComponent } from './update-user-profile.component';
 
 describe('UpdateUserProfileComponent', () => {
-  let component: UpdateUserProfileComponent;
-  let fixture: ComponentFixture<UpdateUserProfileComponent>;
+  let component: UpdateProfileComponent;
+  let fixture: ComponentFixture<UpdateProfileComponent>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [UpdateUserProfileComponent]
+      declarations: [UpdateProfileComponent]
     })
       .compileComponents();
   });
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(UpdateUserProfileComponent);
+    fixture = TestBed.createComponent(UpdateProfileComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });
